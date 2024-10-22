@@ -136,15 +136,15 @@ def find_optimal_ratio(Rconv, const_variables, urca_total, guess=1.,
         return -100
 
 
-def plot_results(Rconv, Mconv, ratio):
+def plot_results(Rconv, Mconv, ratio, 
+                 ylabel="$X({}^{23} \\mathrm{Ne}) / X({}^{23} \\mathrm{Na})$"):
     fig, ax = plt.subplots(1, 1)
 
     # do main plot w/ Rconv
-    ax.plot(Rconv, ratio, 'o-')
+    ax.plot(Rconv, ratio)
 
     ax.set_xlabel("Convection Size (km)", fontsize='large')
-    ratio_str = "$X({}^{23} \\mathrm{Ne}) / X({}^{23} \\mathrm{Na})$"
-    ax.set_ylabel(f"Equilib. Ratio {ratio_str}", fontsize='large')
+    ax.set_ylabel(ylabel, fontsize='large')
 
     bot, top = ax.get_ylim()
     ax.vlines(520, bot, top, linestyles='--', colors='k')
@@ -157,7 +157,6 @@ def plot_results(Rconv, Mconv, ratio):
     axM.plot(Mconv, ratio)
     axM.cla()
     axM.set_xlim(Mconv[0], Mconv[-1])
-    print(Mconv)
     axM.set_title("Mconv (Msun)", fontsize='large')
     return fig, ax
 
