@@ -167,26 +167,27 @@ if __name__ == "__main__":
     rad_arr, rho_arr, T_arr = load_data(infile)
     mass_arr = calc_mass_arr(rad_arr, rho_arr) * unyt.g
     mass_arr = mass_arr.in_units('Msun').value
-    R_in = 430  # km
-    R_out = 700  # km
+    R_in = 420.  # km
+    R_out = 720.  # km
+    dR = 10.  # km
 
-    Rconv_arr = np.linspace(R_in, R_out, 30)
+    Rconv_arr = np.arange(R_in, R_out+dR, dR, dtype=np.float64)
     out_ratio_arr = np.empty_like(Rconv_arr)
     Mconv_arr = np.array([np.sum(mass_arr[np.where(rad_arr < r)]) for r in Rconv_arr])
 
-    urca_tot = 5e-4
+    urca_tot = 8e-4
 
     for i, Rconv in enumerate(Rconv_arr):
         # calc necessary constants
         const_inputs = calc_const_variables(rad_arr, rho_arr, T_arr, Rconv)
 
         # this is quick mix w/o source
-        init_guess = const_inputs[3]/const_inputs[2]
+        init_guess = min(40., const_inputs[3]/const_inputs[2])
 
         # run the minimizing
         curr_ratio = find_optimal_ratio(Rconv, const_inputs, urca_tot,
                                         guess=init_guess,
-                                        min_ratio=1,
+                                        min_ratio=1.,
                                         max_ratio=10.*init_guess)
 
         # est_ratio = calc_new_ratio(curr_ratio, urca_tot, const_inputs)

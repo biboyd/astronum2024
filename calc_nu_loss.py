@@ -47,7 +47,7 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
     # set plot params
     ax.legend(ncols=2)
     ax.set_xlabel("Stellar Radius (km)")
-    ax.set_ylabel('Total Neutrino Losses (erg/s)')
+    ax.set_ylabel('Total Neutrino Losses per radial bin (erg/s/km)')
     ax.set_facecolor('grey')
 
     return fig, ax
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     # save unneeded space as negative
     full_nu_loss_arr = np.zeros((len(Rconv_arr), len(rad_arr)))
 
-    urca_tot = 5e-4
+    urca_tot = 8e-4
 
     for i, (Rconv, ratio) in enumerate(zip(Rconv_arr, ratio_arr)):
         # limit to conv zone
@@ -99,9 +99,12 @@ if __name__ == "__main__":
     fig, ax = plot_results(Rconv_arr, Mconv_arr,
                            sum_nu_arr,
                            ylabel='Total Neutrino Losses (erg/s)')
+    ax.hlines(3.32e43, *ax.get_xlim(), colors='tab:orange', zorder=-1)
+
     fig.savefig("nuloss_vs_rconv.png")
 
-    figall, _ = plot_nu_losses(rad_arr, Rconv_arr, full_nu_loss_arr, ratio_arr)
+    figall, _ = plot_nu_losses(rad_arr, Rconv_arr, full_nu_loss_arr, ratio_arr,
+                               sample=5)
     figall.savefig("full_nu_losses.png")
     # save nu loss array data
     np.save("sum_nu_loss.npy", sum_nu_arr)
