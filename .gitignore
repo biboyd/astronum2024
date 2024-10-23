@@ -1,4 +1,4 @@
 .ipynb_checkpoints/
 *.npy
-*.png
+rand_plots/
 __pycache__/
