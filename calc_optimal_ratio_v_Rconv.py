@@ -147,7 +147,7 @@ def plot_results(Rconv, Mconv, ratio,
     ax.set_ylabel(ylabel, fontsize='large')
 
     bot, top = ax.get_ylim()
-    ax.vlines(520, bot, top, linestyles='--', colors='k')
+    #ax.vlines(520, bot, top, linestyles='--', colors='k')
     ax.set_ylim(bot, top)
     ax.set_xlim(Rconv[0], Rconv[-1])
 
@@ -197,6 +197,8 @@ if __name__ == "__main__":
         out_ratio_arr[i] = curr_ratio
 
     fig, ax = plot_results(Rconv_arr, Mconv_arr, out_ratio_arr)
+    ax.plot(519, 9, 'x', color='k', label='3D simulation')
+    ax.legend()
     fig.savefig("ratio_vs_rconv.png")
 
     # save the arrays

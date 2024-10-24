@@ -33,14 +33,17 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
             pass
 
         else:
-            ax.plot(rad_arr, nu_loss_arr[i, :]/(rad_arr[1] - rad_arr[0]), color=curr_color, label=f"Radius: {Rconv:0.0f} km. ratio={ratio_arr[i]:0.1f}")
+            rconv_str="$R_\\mathrm{conv}$"
+            ax.plot(rad_arr, nu_loss_arr[i, :]/(rad_arr[1] - rad_arr[0]),
+                    color=curr_color, 
+                    label=f"{rconv_str}: {Rconv:0.0f} km. ratio={ratio_arr[i]:0.1f}")
 
     # plot real sim data
     left, right = ax.set_xlim(0., np.max(Rconv_arr))
 
     sim_nuloss = np.load("nuloss.npy")
     sim_rad = np.load("radius.npy")/1e5
-    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='sim avg. ratio=9ish')
+    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='sim avg. ratio = ~9')
 
     ax.set_xlim(left, right)
 
@@ -99,7 +102,9 @@ if __name__ == "__main__":
     fig, ax = plot_results(Rconv_arr, Mconv_arr,
                            sum_nu_arr,
                            ylabel='Total Neutrino Losses (erg/s)')
-    ax.hlines(3.32e43, *ax.get_xlim(), colors='tab:orange', zorder=-1)
+    ax.plot(519, 4.18e42, 'x', color='k', label='3D simulation')
+    ax.hlines(3.32e43, *ax.get_xlim(), colors='tab:orange', label='3D simulation total $\\dot{E}_\\mathrm{nuc}$',zorder=-1)
+    ax.legend()
 
     fig.savefig("nuloss_vs_rconv.png")
 
