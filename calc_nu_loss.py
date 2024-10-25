@@ -25,17 +25,19 @@ def calc_const_nu_loss(Xne23, Xna23, ecap_nu_loss_arr, bdecay_nu_loss_arr, mass_
 def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
     fig, ax = plt.subplots(1, 1)
 
-    cmap_range = np.max(Rconv_arr) - np.min(Rconv_arr)
+    min_color = 0.2
+    cmap_range = (1/(1-min_color)) * (np.max(Rconv_arr) - np.min(Rconv_arr))
 
     for i, Rconv in enumerate(Rconv_arr):
-        curr_color = cmap((Rconv - np.min(Rconv_arr))/cmap_range)
+        curr_color = cmap(min_color + (Rconv - np.min(Rconv_arr))/cmap_range)
+        print(min_color + (Rconv - np.min(Rconv_arr))/cmap_range)
         if i % sample:
             pass
 
         else:
-            rconv_str="$R_\\mathrm{conv}$"
+            rconv_str = "$R_\\mathrm{conv}$"
             ax.plot(rad_arr, nu_loss_arr[i, :]/(rad_arr[1] - rad_arr[0]),
-                    color=curr_color, 
+                    color=curr_color,
                     label=f"{rconv_str}: {Rconv:0.0f} km. ratio={ratio_arr[i]:0.1f}")
 
     # plot real sim data
@@ -51,7 +53,7 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
     ax.legend(ncols=2)
     ax.set_xlabel("Stellar Radius (km)")
     ax.set_ylabel('Total Neutrino Losses per radial bin (erg/s/km)')
-    ax.set_facecolor('grey')
+    #ax.set_facecolor('beige')
 
     return fig, ax
 
@@ -106,11 +108,11 @@ if __name__ == "__main__":
     ax.hlines(3.32e43, *ax.get_xlim(), colors='tab:orange', label='3D simulation total $\\dot{E}_\\mathrm{nuc}$',zorder=-1)
     ax.legend()
 
-    fig.savefig("nuloss_vs_rconv.png")
+    fig.savefig("figures/nuloss_vs_rconv.png")
 
     figall, _ = plot_nu_losses(rad_arr, Rconv_arr, full_nu_loss_arr, ratio_arr,
-                               sample=5)
-    figall.savefig("full_nu_losses.png")
+                               sample=6)
+    figall.savefig("figures/full_nu_losses.png")
     # save nu loss array data
     np.save("sum_nu_loss.npy", sum_nu_arr)
     np.save("full_nu_loss_v_rad.npy", full_nu_loss_arr)

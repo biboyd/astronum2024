@@ -199,7 +199,7 @@ if __name__ == "__main__":
     fig, ax = plot_results(Rconv_arr, Mconv_arr, out_ratio_arr)
     ax.plot(519, 9, 'x', color='k', label='3D simulation')
     ax.legend()
-    fig.savefig("ratio_vs_rconv.png")
+    fig.savefig("figures/ratio_vs_rconv.png")
 
     # save the arrays
     np.save("rconv_arr.npy", Rconv_arr)
