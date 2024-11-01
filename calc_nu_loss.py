@@ -45,7 +45,7 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
 
     sim_nuloss = np.load("nuloss.npy")
     sim_rad = np.load("radius.npy")/1e5
-    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='3D Sim. $\\mathrm{ratio} \\sim 9$}')
+    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='3D Sim. $\\mathrm{ratio} \\sim 9$')
 
     ax.set_xlim(left, right)
 
