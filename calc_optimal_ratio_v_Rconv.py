@@ -122,7 +122,7 @@ def test_ratio(in_ratio, total_Urca, inputs, outside_X=None):
 
 
 def find_optimal_ratio(Rconv, const_variables, urca_total, guess=1.,
-                       min_ratio=0.1, max_ratio=1e5):
+                       min_ratio=0.01, max_ratio=1e5):
 
     sol = minimize(test_ratio, guess, method='Powell',
                    bounds=[(min_ratio, max_ratio)],
@@ -143,7 +143,7 @@ def plot_results(Rconv, Mconv, ratio,
     # do main plot w/ Rconv
     ax.plot(Rconv, ratio)
 
-    ax.set_xlabel("Convection Size (km)", fontsize='large')
+    ax.set_xlabel("$R_{\\mathrm{conv}}$($\\mathrm{km}$)", fontsize='large')
     ax.set_ylabel(ylabel, fontsize='large')
 
     bot, top = ax.get_ylim()
@@ -157,7 +157,7 @@ def plot_results(Rconv, Mconv, ratio,
     axM.plot(Mconv, ratio)
     axM.cla()
     axM.set_xlim(Mconv[0], Mconv[-1])
-    axM.set_title("Mconv (Msun)", fontsize='large')
+    axM.set_title("$M_{\\mathrm{conv}}$ ($\\mathrm{M}_{\\odot}$)", fontsize='large')
     return fig, ax
 
 
@@ -182,13 +182,11 @@ if __name__ == "__main__":
         const_inputs = calc_const_variables(rad_arr, rho_arr, T_arr, Rconv)
 
         # this is quick mix w/o source
-        init_guess = min(40., const_inputs[3]/const_inputs[2])
+        init_guess = 40. #min(40., const_inputs[3]/const_inputs[2])
 
         # run the minimizing
         curr_ratio = find_optimal_ratio(Rconv, const_inputs, urca_tot,
-                                        guess=init_guess,
-                                        min_ratio=1.,
-                                        max_ratio=10.*init_guess)
+                                        guess=init_guess)
 
         # est_ratio = calc_new_ratio(curr_ratio, urca_tot, const_inputs)
 

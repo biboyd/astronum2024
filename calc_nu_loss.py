@@ -45,14 +45,14 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
 
     sim_nuloss = np.load("nuloss.npy")
     sim_rad = np.load("radius.npy")/1e5
-    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='sim avg. ratio = ~9')
+    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='3D Sim. $\\mathrm{ratio} \\sim 9$}')
 
     ax.set_xlim(left, right)
 
     # set plot params
     ax.legend(ncols=2)
     ax.set_xlabel("Stellar Radius (km)")
-    ax.set_ylabel('Total Neutrino Losses per radial bin (erg/s/km)')
+    ax.set_ylabel('$\\mathrm{\\dot{E}}_{\\nu_e}(r)$ per radial bin (erg/s/km)')
     #ax.set_facecolor('beige')
 
     return fig, ax
@@ -103,9 +103,9 @@ if __name__ == "__main__":
 
     fig, ax = plot_results(Rconv_arr, Mconv_arr,
                            sum_nu_arr,
-                           ylabel='Total Neutrino Losses (erg/s)')
+                           ylabel='$\\dot{E}_{\\nu_e}$(erg/s)')
     ax.plot(519, 4.18e42, 'x', color='k', label='3D simulation')
-    ax.hlines(3.32e43, *ax.get_xlim(), colors='tab:orange', label='3D simulation total $\\dot{E}_\\mathrm{nuc}$',zorder=-1)
+    ax.hlines(3.32e43, *ax.get_xlim(), colors='tab:orange', label='3D Simulation $\\dot{E}_\\mathrm{nuc}$',zorder=-1)
     ax.legend()
 
     fig.savefig("figures/nuloss_vs_rconv.png")
