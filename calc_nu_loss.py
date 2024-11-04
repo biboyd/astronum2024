@@ -36,7 +36,7 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
 
         else:
             rconv_str = "$R_\\mathrm{conv}$"
-            ax.plot(rad_arr, nu_loss_arr[i, :]/(rad_arr[1] - rad_arr[0]),
+            ax.plot(rad_arr, nu_loss_arr[i, :]/(rad_arr[1] - rad_arr[0])/1e41,
                     color=curr_color,
                     label=f"{rconv_str}: {Rconv:0.0f} km. ratio={ratio_arr[i]:0.1f}")
 
@@ -45,15 +45,14 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
 
     sim_nuloss = np.load("nuloss.npy")
     sim_rad = np.load("radius.npy")/1e5
-    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0]), 'k--', label='3D Sim. $\\mathrm{ratio} \\sim 9$')
+    ax.plot(sim_rad, sim_nuloss/(sim_rad[1] - sim_rad[0])/1e41, 'k--', label='3D Sim. $\\mathrm{ratio} \\sim 9$')
 
     ax.set_xlim(left, right)
 
     # set plot params
-    ax.legend(ncols=2)
+    ax.legend(ncols=2, loc='upper left', bbox_to_anchor=(0., 1.1), framealpha=1)
     ax.set_xlabel("Stellar Radius (km)")
-    ax.set_ylabel('$\\mathrm{\\dot{E}}_{\\nu_e}(r)$ per radial bin (erg/s/km)')
-    #ax.set_facecolor('beige')
+    ax.set_ylabel('$\\mathrm{\\dot{E}}_{\\nu_e}(r)$ per radial bin ($10^{41}$ erg/s/km)')
 
     return fig, ax
 
