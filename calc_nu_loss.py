@@ -51,8 +51,8 @@ def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
 
     # set plot params
     ax.legend(ncols=2, loc='upper left', bbox_to_anchor=(0., 1.1), framealpha=1)
-    ax.set_xlabel("Stellar Radius (km)")
-    ax.set_ylabel('$\\mathrm{\\dot{E}}_{\\nu_e}(r)$ per radial bin ($10^{41}$ erg/s/km)')
+    ax.set_xlabel("Stellar Radius (km)", fontsize='large' )
+    ax.set_ylabel('$\\mathrm{\\dot{E}}_{\\nu_e}(r)$ per radial bin ($10^{41}$ erg/s/km)', fontsize='large')
 
     return fig, ax
 
