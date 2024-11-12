@@ -23,7 +23,7 @@ def calc_const_nu_loss(Xne23, Xna23, ecap_nu_loss_arr, bdecay_nu_loss_arr, mass_
 
 
 def plot_nu_losses(rad_arr, Rconv_arr, nu_loss_arr, ratio_arr, sample=4):
-    fig, ax = plt.subplots(1, 1)
+    fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 
     min_color = 0.2
     cmap_range = (1/(1-min_color)) * (np.max(Rconv_arr) - np.min(Rconv_arr))

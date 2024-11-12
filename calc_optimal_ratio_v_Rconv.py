@@ -138,7 +138,7 @@ def find_optimal_ratio(Rconv, const_variables, urca_total, guess=1.,
 
 def plot_results(Rconv, Mconv, ratio, 
                  ylabel="$X({}^{23} \\mathrm{Ne}) / X({}^{23} \\mathrm{Na})$"):
-    fig, ax = plt.subplots(1, 1)
+    fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 
     # do main plot w/ Rconv
     ax.plot(Rconv, ratio)
